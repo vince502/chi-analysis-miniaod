@@ -11,7 +11,7 @@
 #define __OniaPhotonProducer_h_
 
 #include "FWCore/Framework/interface/Frameworkfwd.h"
-#include "FWCore/Framework/interface/EDProducer.h"
+#include "FWCore/Framework/interface/stream/EDProducer.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
@@ -27,7 +27,7 @@
    Create a Chi(b,c) candidate by mathing dimuon and conversion
  */
 
-class OniaPhotonProducer : public edm::EDProducer {
+class OniaPhotonProducer : public edm::EDProducer<> {
 
  public:
   explicit OniaPhotonProducer(const edm::ParameterSet& ps);

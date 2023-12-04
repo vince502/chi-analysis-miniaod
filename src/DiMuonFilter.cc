@@ -3,7 +3,7 @@
 
 // FW include files
 #include "FWCore/Framework/interface/Frameworkfwd.h"
-#include "FWCore/Framework/interface/EDProducer.h"
+#include "FWCore/Framework/interface/stream/EDProducer.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
@@ -14,7 +14,7 @@
 #include "CommonTools/UtilAlgos/interface/StringCutObjectSelector.h"
 
 
-class DiMuonFilter : public edm::EDProducer {
+class DiMuonFilter : public edm::EDProducer<> {
  public:
   explicit DiMuonFilter(const edm::ParameterSet&);
   ~DiMuonFilter() override {};

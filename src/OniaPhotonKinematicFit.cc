@@ -18,7 +18,7 @@
 
 // user include files
 #include "FWCore/Framework/interface/Frameworkfwd.h"
-#include "FWCore/Framework/interface/EDProducer.h"
+#include "FWCore/Framework/interface/stream/EDProducer.h"
 
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
@@ -59,7 +59,7 @@
 // class declaration
 //
 
-class OniaPhotonKinematicFit : public edm::EDProducer {
+class OniaPhotonKinematicFit : public edm::EDProducer<> {
   public:
     explicit OniaPhotonKinematicFit(const edm::ParameterSet&);
     ~OniaPhotonKinematicFit() override {};

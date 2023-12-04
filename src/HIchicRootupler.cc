@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "FWCore/Framework/interface/Frameworkfwd.h"
-#include "FWCore/Framework/interface/EDAnalyzer.h"
+#include "FWCore/Framework/interface/one/EDAnalyzer.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
@@ -27,7 +27,7 @@
 #include <vector>
 #include <sstream>
 
-class HIchicRootupler:public edm::EDAnalyzer {
+class HIchicRootupler:public edm::one::EDAnalyzer<> {
       public:
 	explicit HIchicRootupler(const edm::ParameterSet &);
 	~HIchicRootupler() override {};

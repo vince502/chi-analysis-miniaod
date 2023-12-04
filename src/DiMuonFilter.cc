@@ -14,7 +14,7 @@
 #include "CommonTools/UtilAlgos/interface/StringCutObjectSelector.h"
 
 
-class DiMuonFilter : public edm::EDProducer<> {
+class DiMuonFilter : public edm::stream::EDProducer<> {
  public:
   explicit DiMuonFilter(const edm::ParameterSet&);
   ~DiMuonFilter() override {};

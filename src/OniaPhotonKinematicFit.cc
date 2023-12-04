@@ -59,7 +59,7 @@
 // class declaration
 //
 
-class OniaPhotonKinematicFit : public edm::EDProducer<> {
+class OniaPhotonKinematicFit : public edm::stream::EDProducer<> {
   public:
     explicit OniaPhotonKinematicFit(const edm::ParameterSet&);
     ~OniaPhotonKinematicFit() override {};

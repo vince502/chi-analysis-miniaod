@@ -27,7 +27,7 @@
    Create a Chi(b,c) candidate by mathing dimuon and conversion
  */
 
-class OniaPhotonProducer : public edm::EDProducer<> {
+class OniaPhotonProducer : public edm::stream::EDProducer<> {
 
  public:
   explicit OniaPhotonProducer(const edm::ParameterSet& ps);

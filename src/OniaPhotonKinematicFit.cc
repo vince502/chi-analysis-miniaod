@@ -71,6 +71,7 @@ class OniaPhotonKinematicFit : public edm::stream::EDProducer<> {
   double upsilon_mass_;
   std::string product_name_;
   edm::EDGetTokenT<pat::CompositeCandidateCollection> chi_Label;
+  edm::ESGetToken<TransientTrackBuilder, TransientTrackRecord> trackBuilderToken_;
 
   template<typename T>
     struct GreaterByVProb {
@@ -82,7 +83,9 @@ class OniaPhotonKinematicFit : public edm::stream::EDProducer<> {
     };
 };
 
-OniaPhotonKinematicFit::OniaPhotonKinematicFit(const edm::ParameterSet& iConfig) {
+OniaPhotonKinematicFit::OniaPhotonKinematicFit(const edm::ParameterSet& iConfig) 
+  : 
+    trackBuilderToken_(esConsumes(edm::ESInputTag("", "TransientTrackBuilder"))) {
   chi_Label     = consumes<pat::CompositeCandidateCollection>(iConfig.getParameter< edm::InputTag>("chi_cand"));
   upsilon_mass_ = iConfig.getParameter<double>("upsilon_mass");
   product_name_ = iConfig.getParameter<std::string>("product_name");
@@ -99,9 +102,11 @@ void OniaPhotonKinematicFit::produce(edm::Event& iEvent, const edm::EventSetup& 
   //Kinemati refit collection
   std::unique_ptr<pat::CompositeCandidateCollection> chicCompCandRefitColl(new pat::CompositeCandidateCollection);
   
+  // edm::ESHandle<TransientTrackBuilder> theB; 
+  // iSetup.get<TransientTrackRecord>().get("TransientTrackBuilder",theB); 
   // Kinematic fit
-  edm::ESHandle<TransientTrackBuilder> theB; 
-  iSetup.get<TransientTrackRecord>().get("TransientTrackBuilder",theB); 
+  const auto &theB = iSetup.getHandle(trackBuilderToken_);
+
   
   int indexConversion=-1;
 

@@ -1,9 +1,9 @@
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 config = config()
 
-myname='rootuple-chic-2017'
+myname='rootuple-POnia'
 mydata='/Charmonium/Run2017B-PromptReco-v1/MINIAOD'
-myjson='Cert_294927-297723_13TeV_PromptReco_Collisions17_JSON_MuonPhys.txt'
+myjson='Cert_Collisions2023HI_374288_375823_Muon.json'
 
 config.General.requestName = myname
 config.General.transferOutputs = True
@@ -24,4 +24,5 @@ config.Data.publication = False
 config.Data.publishDBS  = 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter/'
 config.Data.inputDBS = 'https://cmsweb.cern.ch/dbs/prod/global/DBSReader/'
 config.Data.outputDatasetTag  = myname
-config.Site.storageSite = 'T3_US_FNALLPC'
+config.Data.outLFNDirBase = '/store/user/soohwan/Analysis/PbpMinimumBias/%s' % (config.General.requestName)
+config.Site.storageSite = 'T3_KR_KNU'

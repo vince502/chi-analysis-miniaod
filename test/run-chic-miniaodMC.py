@@ -1,4 +1,4 @@
-input_filename = 'file:/eos/cms/store/group/phys_heavyions/dileptons/Data2023/MINIAOD/HIPhysicsRawPrime0/Run375064/7ed5766f-6b1d-415e-8916-e62825a6347f.root'
+input_filename = 'file:step3_6.root'
 #input_filename = 'file:/afs/cern.ch/work/s/soohwan/private/MCSIM/ChiC_PbPb/CMSSW_13_2_8/src/step3.root'
 ouput_filename = 'rootuple.root'
 
@@ -47,8 +47,8 @@ process.onia2MuMuPAT.primaryVertexTag=cms.InputTag('offlineSlimmedPrimaryVertice
 process.onia2MuMuPAT.beamSpotTag=cms.InputTag('offlineBeamSpot')
 process.onia2MuMuPAT.higherPuritySelection=cms.string("")
 process.onia2MuMuPAT.lowerPuritySelection=cms.string("")
-process.onia2MuMuPAT.dimuonSelection=cms.string("8.5 < mass && mass < 11.5")
-process.onia2MuMuPAT.addMCTruth = cms.bool(False)
+process.onia2MuMuPAT.dimuonSelection=cms.string("2.7 < mass && mass < 3.5")
+process.onia2MuMuPAT.addMCTruth = cms.bool(True)
 
 process.triggerSelection = cms.EDFilter("TriggerResultsFilter",
                                         triggerConditions = cms.vstring("HLT_HIL*SingleMu*_v*", "HLT_HIL*DoubleMu*_v*", "HLT_HIMinimumBiasHF1AND*_v*"
@@ -60,11 +60,11 @@ process.triggerSelection = cms.EDFilter("TriggerResultsFilter",
 
 process.Onia2MuMuFiltered = cms.EDProducer('DiMuonFilter',
       OniaTag             = cms.InputTag("onia2MuMuPAT"),
-      singlemuonSelection = cms.string(""),
-      dimuonSelection     = cms.string("8.6 < mass && mass < 11.4 && pt > 0. && abs(y) < 2.4 && charge==0 && userFloat('vProb') > 0.005"),
-      do_trigger_match    = cms.bool(True),
+      singlemuonSelection = cms.string(""),             
+      dimuonSelection     = cms.string("2.7 < mass && mass < 3.5 && pt > 2. && abs(y) < 2.4 && charge==0 && userFloat('vProb') > 0.01"),
+      do_trigger_match    = cms.bool(False),
       HLTFilters          = cms.vstring(
-                          ),
+                                       ),
 )
 
 process.DiMuonCounter = cms.EDFilter('CandViewCountFilter',
@@ -83,20 +83,8 @@ process.chiProducer = cms.EDProducer('OniaPhotonProducer',
 
 process.chiFitter1S = cms.EDProducer('OniaPhotonKinematicFit',
                           chi_cand = cms.InputTag("chiProducer"),
-                          upsilon_mass = cms.double(9.46030), # GeV   1S = 9.46030   2S = 10.02326    3S = 10.35520  J/psi=3.0969
+                          upsilon_mass = cms.double(3.0969), # GeV   1S = 9.46030   2S = 10.02326    3S = 10.35520  J/psi=3.0969
                           product_name = cms.string("y1S")
-                         )
-
-process.chiFitter2S = cms.EDProducer('OniaPhotonKinematicFit',
-                          chi_cand = cms.InputTag("chiProducer"),
-                          upsilon_mass = cms.double(10.02326), # GeV   1S = 9.46030   2S = 10.02326    3S = 10.35520  J/psi=3.0969
-                          product_name = cms.string("y2S")
-                         )
-
-process.chiFitter3S = cms.EDProducer('OniaPhotonKinematicFit',
-                          chi_cand = cms.InputTag("chiProducer"),
-                          upsilon_mass = cms.double(10.35520), # GeV   1S = 9.46030   2S = 10.02326    3S = 10.35520  J/psi=3.0969
-                          product_name = cms.string("y3S")
                          )
 
 process.chiSequence = cms.Sequence(
@@ -107,20 +95,16 @@ process.chiSequence = cms.Sequence(
 				   process.Onia2MuMuFiltered *
 		                   process.DiMuonCounter *
 				   process.chiProducer *
-				   process.chiFitter1S *
-                                   process.chiFitter2S *
-                                   process.chiFitter3S
+				   process.chiFitter1S
 				   )
 
-process.rootuple = cms.EDAnalyzer('chibRootupler',
+process.rootuple = cms.EDAnalyzer('chicRootupler',
                           chi_cand = cms.InputTag("chiProducer"),
 			  ups_cand = cms.InputTag("Onia2MuMuFiltered"),
                           refit1S  = cms.InputTag("chiFitter1S","y1S"),
-			  refit2S  = cms.InputTag("chiFitter2S","y2S"),
-			  refit3S  = cms.InputTag("chiFitter3S","y3S"),
                           primaryVertices = cms.InputTag("offlineSlimmedPrimaryVertices"),
                           TriggerResults  = cms.InputTag("TriggerResults", "", "HLT"),
-                          isMC = cms.bool(False),
+                          isMC = cms.bool(True),
                           FilterNames = cms.vstring(
                                                    )
                          )

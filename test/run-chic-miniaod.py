@@ -61,7 +61,7 @@ process.triggerSelection = cms.EDFilter("TriggerResultsFilter",
 process.Onia2MuMuFiltered = cms.EDProducer('DiMuonFilter',
       OniaTag             = cms.InputTag("onia2MuMuPAT"),
       singlemuonSelection = cms.string(""),             
-      dimuonSelection     = cms.string("2.7 < mass && mass < 3.5 && pt > 2. && abs(y) < 2.4 && charge==0 && userFloat('vProb') > 0.01"),
+      dimuonSelection     = cms.string("2.7 < mass && mass < 3.5 && pt > 6.5 && abs(y) < 2.4 && charge==0 && userFloat('vProb') > 0.005"),
       do_trigger_match    = cms.bool(False),
       HLTFilters          = cms.vstring(
                                        ),
@@ -76,8 +76,8 @@ process.chiProducer = cms.EDProducer('OniaPhotonProducer',
     conversions     = cms.InputTag("oniaPhotonCandidates","conversions"),
     dimuons         = cms.InputTag("Onia2MuMuFiltered"),
     pi0OnlineSwitch = cms.bool(False),
-    deltaMass       = cms.vdouble(0.0,2.0),
-    dzmax           = cms.double(0.5),
+    deltaMass       = cms.vdouble(0.0,1.0),
+    dzmax           = cms.double(0.),
     triggerMatch    = cms.bool(False)  # trigger match is performed in Onia2MuMuFiltered
 )
 

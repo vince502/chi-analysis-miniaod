@@ -75,9 +75,9 @@ process.DiMuonCounter = cms.EDFilter('CandViewCountFilter',
 process.chiProducer = cms.EDProducer('OniaPhotonProducer',
     conversions     = cms.InputTag("oniaPhotonCandidates","conversions"),
     dimuons         = cms.InputTag("Onia2MuMuFiltered"),
-    pi0OnlineSwitch = cms.bool(False),
-    deltaMass       = cms.vdouble(0.0,2.0),
-    dzmax           = cms.double(0.5),
+    pi0OnlineSwitch = cms.bool(True),
+    deltaMass       = cms.vdouble(-100.0,100.0),
+    dzmax           = cms.double(10.),
     triggerMatch    = cms.bool(False)  # trigger match is performed in Onia2MuMuFiltered
 )
 
